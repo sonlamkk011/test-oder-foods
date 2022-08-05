@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import classNames from "classnames";
 import {
@@ -136,8 +136,7 @@ const AddressStep = () => {
               placeholder="Ghi chú món ăn"
               component={Input}
             />
-          
-            
+
             <div className="actions">
               <button
                 type="button"
@@ -194,10 +193,7 @@ const Checkout = () => {
   const { step, shippingAddress } = useContext(CheckoutStateContext);
   const checkoutDispatch = useContext(CheckoutDispatchContext);
   const totalItems = items.length;
-  
-
-
-
+  let total = 0
 
   const handleClickTimeline = (nextStep) => {
     setCheckoutStep(checkoutDispatch, nextStep);
@@ -250,6 +246,7 @@ const Checkout = () => {
           </h2>
           <ul className="cart-items">
             {items.map((product) => {
+              total += product.quantity * product.price;
               return (
                 <li className="cart-item" key={product.name}>
                   <img className="product-image" src={product.image} />
@@ -263,24 +260,18 @@ const Checkout = () => {
                         product.quantity > 1 ? "Nos." : "No."
                       }`}
                     </p>
-                    
-                    <p className="amount">{product.quantity * product.price}</p>
 
+                    <p className="amount">{product.quantity * product.price}</p>
                   </div>
-                  
                 </li>
-                
               );
             })}
           </ul>
 
           <ul className="total-breakup">
-           
-           
-           
             <li>
               <h2>Total</h2>
-              <h2></h2>
+              <h2>{total}vnd</h2>
             </li>
           </ul>
         </div>
