@@ -18,8 +18,13 @@ const CartPreview = () => {
   };
 
   const handleProceedCheckout = () => {
-    toggleCartPopup(dispatch);
-    history.push("/checkout");
+    if(items == 0){
+
+    }else{
+      toggleCartPopup(dispatch);
+      history.push("/checkout");
+    }
+    
   };
 
   return (

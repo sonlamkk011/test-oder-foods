@@ -16,9 +16,9 @@ const ProductCard = ({ data }) => {
   };
 
   return (
-    <div className="product" style={{borderRadius:"1rem"}}>
-      <div className="product-image" style={{borderRadius:"1rem"}}>
-        <img src={image} alt={name} />
+    <div className="product">
+      <div className="product-image" style={{borderRadius:"5px", width: 230, height: 150}}>
+        <img  src={image} alt={name} />
       </div>
       <h4 className="product-name">{name}</h4>
       <p className="product-price">{price}</p>

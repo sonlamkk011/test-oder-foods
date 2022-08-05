@@ -52,15 +52,14 @@ export const getProducts = (dispatch) => {
   dispatch({
     type: "GET_PRODUCTS_REQUEST"
   });
-  const url =
-    "https://res.cloudinary.com/sivadass/raw/upload/v1535817394/json/products.json";
+  const url = "https://order-foods.herokuapp.com/api/v1/foods/list";
   axios
     .get(url)
     .then((response) => {
       dispatch({
         type: "GET_PRODUCTS_SUCCESS",
         payload: {
-          products: response.data
+          products: response.data.Pageable.content
         }
       });
     })

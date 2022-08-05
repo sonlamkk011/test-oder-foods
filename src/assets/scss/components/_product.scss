@@ -1,13 +1,15 @@
 .product {
   background: $white;
   margin: 16px;
-  width: 200px;
+  width: 250px;
   border-radius: 2px;
   .product-image {
+
     overflow: hidden;
     border-radius: 2px 2px 0 0;
-    max-height: 200px;
+    
     img {
+     margin: 20px 0px 0px 15px ;
       cursor: zoom-in;
       width: 100%;
       height: auto;
@@ -22,16 +24,19 @@
     }
   }
   .product-name {
+    margin-top: 20px;
+    float: left;
     font-weight: normal;
     font-size: 16px;
     line-height: 20px;
-    margin-bottom: 8px;
+   
   }
   .product-price {
-    font-size: 22px;
+    margin-left: -150px;
+    font-size: 20px;
     font-weight: 700;
     line-height: 22px;
-    margin-bottom: 16px;
+    margin-top: 50px;
     &:before {
       content: " ";
     }
