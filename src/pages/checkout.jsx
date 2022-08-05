@@ -194,6 +194,10 @@ const Checkout = () => {
   const { step, shippingAddress } = useContext(CheckoutStateContext);
   const checkoutDispatch = useContext(CheckoutDispatchContext);
   const totalItems = items.length;
+  
+
+
+
 
   const handleClickTimeline = (nextStep) => {
     setCheckoutStep(checkoutDispatch, nextStep);
@@ -221,10 +225,10 @@ const Checkout = () => {
               })}
               onClick={() => handleClickTimeline(CHECKOUT_STEPS.SHIPPING)}
             >
-              <h2>Shipping</h2>
+              <h2>Details</h2>
               <i className="rsc-icon-check_circle" />
             </li>
-            <li
+            {/* <li
               className={classNames({
                 done: false,
                 active: step === CHECKOUT_STEPS.PAYMENT
@@ -233,7 +237,7 @@ const Checkout = () => {
             >
               <h2>Payment</h2>
               <i className="rsc-icon-check_circle" />
-            </li>
+            </li> */}
           </ul>
           {step === CHECKOUT_STEPS.AUTH && <LoginStep />}
           {step === CHECKOUT_STEPS.SHIPPING && <AddressStep />}
@@ -259,23 +263,24 @@ const Checkout = () => {
                         product.quantity > 1 ? "Nos." : "No."
                       }`}
                     </p>
+                    
                     <p className="amount">{product.quantity * product.price}</p>
+
                   </div>
+                  
                 </li>
+                
               );
             })}
           </ul>
 
           <ul className="total-breakup">
-            <li>
-              <p>Subtotal</p>
-              <p>100</p>
-            </li>
+           
            
            
             <li>
               <h2>Total</h2>
-              <h2>100</h2>
+              <h2></h2>
             </li>
           </ul>
         </div>
