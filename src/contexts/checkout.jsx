@@ -2,8 +2,7 @@ import React, { useReducer, createContext, useEffect } from "react";
 import useLocalStorage from "hooks/useLocalStorage";
 
 export const CHECKOUT_STEPS = {
-  AUTH: "auth",
-  SHIPPING: "shipping",
+
   PAYMENT: "payment"
 };
 

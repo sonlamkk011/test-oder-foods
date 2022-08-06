@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AuthProvider from "contexts/auth";
 import CommonProvider from "contexts/common";
 import ProductsProvider from "contexts/products";
@@ -12,6 +12,7 @@ import AuthPage from "pages/auth";
 import HomePage from "pages/home";
 import CheckoutPage from "pages/checkout";
 import "assets/scss/style.scss";
+import OrderDetails from "pages/OrderDetails/OrderDetails";
 
 const App = () => {
   return (
@@ -37,6 +38,10 @@ const App = () => {
                     path="/auth"
                     component={AuthPage}
                     layout={AuthLayout}
+                  />
+                  <Route
+                    path="/order-details"
+                    component={OrderDetails}
                   />
                 </Switch>
               </Router>

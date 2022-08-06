@@ -32,16 +32,16 @@ const Header = (props) => {
     <header>
       <div className="container">
         <div className="brand">
-          <Link to="/">
-            <h1 className="logo" style={{marginRight:"50px"}}> OrderFoods</h1>
-          </Link>
+          <a href="/">
+            <h1 className="logo" style={{ marginRight: "50px" }}>
+              {" "}
+              OrderFoods
+            </h1>
+          </a>
         </div>
 
         <div className="search">
-          <a
-            className="mobile-search"
-            href="#"
-          >
+          <a className="mobile-search" href="#">
             <img
               src="https://res.cloudinary.com/sivadass/image/upload/v1494756966/icons/search-green.png"
               alt="search"
