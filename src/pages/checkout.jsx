@@ -8,13 +8,19 @@ import {
   setCheckoutStep,
   saveShippingAddress
 } from "contexts/checkout";
-import { CartDispatchContext, CartStateContext, removeCart, removeFromCart } from "contexts/cart";
+import {
+  CartDispatchContext,
+  CartStateContext,
+  removeCart,
+  removeFromCart
+} from "contexts/cart";
 import { AuthStateContext, AuthDispatchContext, signOut } from "contexts/auth";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import _get from "lodash.get";
 import Input from "components/core/form-controls/Input";
 import { phoneRegExp } from "constants/common";
+import axios from "axios";
 
 const AddressSchema = Yup.object().shape({
   fullName: Yup.string().required("Full Name is required"),
@@ -31,6 +37,9 @@ const AddressSchema = Yup.object().shape({
 });
 
 const Checkout = () => {
+  const [fullName, setFullname] = React.useState("");
+  // const [phoneNumber, setPhoneNumber] = React.useState("");
+  const [note, setNote] = React.useState("");
   const { items = [] } = useContext(CartStateContext);
   const [open, setOpen] = React.useState(false);
   const { step, shippingAddress } = useContext(CheckoutStateContext);
@@ -53,10 +62,31 @@ const Checkout = () => {
   };
 
   const orderNow = () => {
-    console.log(items);
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "foods": [
+            {"foodId":1,
+            "quantity":3
+            },{"foodId":2,
+            "quantity":5
+            }
+        
+        ],
+        "note": "Hello",
+        "phone": "0123456782"
+        
+    })
+    };
+    {
+      
+    }
+    fetch("https://order-foods.herokuapp.com/api/v1/orders/create", options);
   };
 
-  console.log("items", items);
   const handleRemove = (items) => {
     return removeCart(dispatch, items);
   };
@@ -65,7 +95,6 @@ const Checkout = () => {
     <>
       <div className="checkout-page">
         <div className="container">
-        
           <div className="order-summary">
             <h2>
               Summary
@@ -80,7 +109,7 @@ const Checkout = () => {
                     <div className="product-info">
                       <p className="product-name">{product.name}</p>
 
-                      <p className="product-price">{product.price}.000 vnd</p>
+                      <p className="product-price">{product.price}.000</p>
                     </div>
                     <button
                       className="product-remove"
@@ -97,7 +126,7 @@ const Checkout = () => {
                       </p>
 
                       <p className="amount">
-                        {product.quantity * product.price}.000 vnd
+                        {product.quantity * product.price}.000
                       </p>
                     </div>
                   </li>
@@ -112,7 +141,7 @@ const Checkout = () => {
               </li>
             </ul>
           </div>
-          <div className="order-details" style={{marginLeft:"50px"}}>
+          <div className="order-details" style={{ marginLeft: "50px" }}>
             <div className="detail-container">
               <ul className="timeline"></ul>
               <h2>Personal Information</h2>
@@ -133,7 +162,7 @@ const Checkout = () => {
                 }}
               >
                 {() => (
-                  <Form>
+                  <Form >
                     <div className="field-group">
                       <Field
                         name="fullName"
@@ -143,6 +172,7 @@ const Checkout = () => {
                       />
                       <Field
                         name="phoneNumber"
+                        // value={phoneNumber}
                         type="text"
                         placeholder="Phone Number"
                         component={Input}
@@ -150,18 +180,23 @@ const Checkout = () => {
                     </div>
                     <Field
                       name="text"
+                      value={note}
                       type="text"
                       placeholder="Ghi chú món ăn"
                       component={Input}
-                      style={{height:"70px"}}
+                      style={{ height: "70px" }}
                     />
 
-                    <div className="actions" >
+                    <div className="actions">
                       <button
                         type="button"
                         className="outline"
                         onClick={() => handleContinueShopping()}
-                        style={{ backgroundColor: "#0bc122", color: "black", marginTop:"112px" }}
+                        style={{
+                          backgroundColor: "#0bc122",
+                          color: "black",
+                          marginTop: "112px"
+                        }}
                       >
                         <i className="rsc-icon-arrow_back" /> Shoping
                       </button>
