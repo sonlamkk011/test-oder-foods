@@ -7,7 +7,7 @@ const Footer = () => {
       <p className="footer-links">
        
         <span> / </span>
-        {/* <a href="mailto:contact@sivadass.in" target="_blank">
+        <a href="mailto:contact@sivadass.in" target="_blank">
           Need any help?
         </a>
         <span> / </span>
@@ -17,10 +17,10 @@ const Footer = () => {
         <span> / </span>
         <a href="https://sivadass.in" target="_blank">
           Read My Blog
-        </a> */}
+        </a>
       </p>
       <p>
-        &copy; {currentYear} <strong>Veggy</strong> - Organic Green Store
+        &copy; {currentYear} <strong>Order Foods</strong> - Order Foods Store
       </p>
     </footer>
   );

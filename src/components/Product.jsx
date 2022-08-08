@@ -9,7 +9,7 @@ import Alert from "@mui/material/Alert";
 
 
 
-const ProductCard = ({ data }) => {
+const   ProductCard = ({ data }) => {
   const [isAdded, setIsAdded] = useState(false);
   const dispatch = useContext(CartDispatchContext);
   const { image, name, price, id, stock } = data;
@@ -37,7 +37,7 @@ const ProductCard = ({ data }) => {
     <div className="product row">
         <div className="col-lg-4">
 
-      <div className="product-image" style={{ borderRadius: "5px", width: 230, height: 150 }}>
+      <div className="product-image" style={{ borderRadius: "5px" }}>
         <img src={image} alt={name} />
       </div>
       <h1 className="product-name" style={{marginLeft:"1px", color:"#077915"}}>{name}</h1>
