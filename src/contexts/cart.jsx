@@ -45,10 +45,10 @@ const reducer = (state, action) => {
           (item) => item.id !== action.payload.cartItemId
         )
       };
-    case "CLEAR_CART":
+    case "REMOVE_CART":
       return {
         ...state,
-        ...initialState
+        items: state.items.filter((item) => item.id !== action.payload.items)
       };
     default:
       throw new Error(`Unknown action: ${action.type}`);
@@ -75,6 +75,15 @@ export const removeFromCart = (dispatch, cartItemId) => {
     type: "REMOVE_FROM_CART",
     payload: {
       cartItemId: cartItemId
+    }
+  });
+};
+
+export const removeCart = (dispatch, items) => {
+  return dispatch({
+    type: "REMOVE_CART",
+    payload: {
+      items: items
     }
   });
 };
