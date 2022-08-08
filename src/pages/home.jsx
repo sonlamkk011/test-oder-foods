@@ -1,5 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import ProductCard from "components/Product";
+import Stack from "@mui/material/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   ProductsStateContext,
   ProductsDispatchContext,
@@ -28,7 +30,11 @@ const Home = () => {
   if (isLoading) {
     return (
       <div className="products-wrapper">
-        <h1>Loading...</h1>
+        <Stack sx={{ color: "grey.500" }} spacing={2} direction="row">
+          <CircularProgress color="secondary" />
+          <CircularProgress color="success" />
+          <CircularProgress color="inherit" />
+        </Stack>
       </div>
     );
   }

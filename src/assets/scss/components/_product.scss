@@ -2,7 +2,7 @@
   background: $white;
   margin: 16px;
   width: 250px;
-  border-radius: 2px;
+  border-radius: 9px;
   .product-image {
 
     overflow: hidden;
@@ -27,16 +27,16 @@
     margin-top: 20px;
     float: left;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 20px;
    
   }
   .product-price {
-    margin-left: -150px;
+    // margin-left: -150px;
     font-size: 20px;
     font-weight: 700;
     line-height: 22px;
-    margin-top: 50px;
+    margin-top: 80px;
     &:before {
       content: " ";
     }

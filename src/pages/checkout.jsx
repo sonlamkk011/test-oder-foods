@@ -58,6 +58,10 @@ const Checkout = () => {
     setCheckoutStep(checkoutDispatch, nextStep);
   };
 
+  const orderNow = () =>{
+    console.log(items)
+  }
+
   console.log('items', items);
   return (
     <>
@@ -110,9 +114,10 @@ const Checkout = () => {
               type="text"
               placeholder="Ghi chú món ăn"
               component={Input}
+              
             />
 
-            <div className="actions" style={{alignItems:"flex-end"}}>
+            <div className="actions">
               <button
                 type="button"
                 className="outline"
@@ -123,7 +128,7 @@ const Checkout = () => {
               </button>
               {/* <Link to="/order-details"> */}
               
-              <button type="submit" style={{backgroundColor:"#0bc122", color:"black"}}>
+              <button type="submit" onClick={orderNow} style={{backgroundColor:"#0bc122", color:"black"}}>
                 Oder
                 <i className="rsc-icon-arrow_forward" />
               </button>
@@ -168,7 +173,7 @@ const Checkout = () => {
           <ul className="total-breakup">
             <li>
               <h2>Total</h2>
-              <h2>{total}vnd</h2>
+              <h2>{total}.000 vnd</h2>
             </li>
           </ul>
         </div>

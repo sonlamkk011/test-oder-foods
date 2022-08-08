@@ -34,20 +34,23 @@ const ProductCard = ({ data }) => {
   };
 
   return (
-    <div className="product">
+    <div className="product row">
+        <div className="col-lg-4">
+
       <div className="product-image" style={{ borderRadius: "5px", width: 230, height: 150 }}>
         <img src={image} alt={name} />
       </div>
-      <h4 className="product-name">{name}</h4>
-      <p className="product-price">{price}</p>
+      <h1 className="product-name" style={{marginLeft:"1px", color:"#077915"}}>{name}</h1>
+      <p className="product-price" >{price}.000 vnd</p>
       <div className="product-action">
         <button
-          className
+         
           type="button"
           onClick={handleAddToCart}
+          className={!isAdded ? "" : "added"}
 
         >
-        ADD TO CART
+        {!isAdded ? "ADD TO CART" : "✔️ ADDED"}
         </button>
 
       </div>
@@ -59,6 +62,8 @@ const ProductCard = ({ data }) => {
         </Snackbar>
       </div>
     </div>
+
+      </div>
 
 
 
