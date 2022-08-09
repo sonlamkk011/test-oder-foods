@@ -1,6 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import classNames from "classnames";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+
 import {
   CheckoutStateContext,
   CheckoutDispatchContext,
@@ -28,18 +37,17 @@ const AddressSchema = Yup.object().shape({
     .required("Phone Number is required")
     .matches(phoneRegExp, "Phone Number is not a valid 10 digit number")
     .min(10, "Phone Number is too short")
-    .max(10, "Phone Number is too long"),
-  addressLine: Yup.string().required("Door No. & Street is required!"),
-  city: Yup.string().required("City is required!"),
-  state: Yup.string().required("State is required!"),
-  code: Yup.string().required("ZIP/Postal code is required!"),
-  country: Yup.string().required("Country is required!")
+    .max(10, "Phone Number is too long")
+});
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const Checkout = () => {
-  const [fullName, setFullname] = React.useState("");
-  // const [phoneNumber, setPhoneNumber] = React.useState("");
+  const [fullName, setfullName] = React.useState("");
+  const [phoneNumber, setPhoneNumber] = React.useState("");
   const [note, setNote] = React.useState("");
+  const [products, setProducts] = React.useState([]);
   const { items = [] } = useContext(CartStateContext);
   const [open, setOpen] = React.useState(false);
   const { step, shippingAddress } = useContext(CheckoutStateContext);
@@ -48,6 +56,14 @@ const Checkout = () => {
   let total = 0;
   const history = useHistory();
   const dispatch = useContext(CartDispatchContext);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleContinueShopping = () => {
     history.push("/");
@@ -60,31 +76,40 @@ const Checkout = () => {
   const handleClickTimeline = (nextStep) => {
     setCheckoutStep(checkoutDispatch, nextStep);
   };
+  const handleChangeName = (ev) => {
+    setfullName(ev.target.value);
+  };
+  const handleChangePhone = (ev) => {
+    setPhoneNumber(ev.target.value);
+  };
+  const handleChangeNote = (ev) => {
+    setNote(ev.target.value);
+  };
 
   const orderNow = () => {
+    const newArr = [];
+    items.map((e) => {
+      newArr.push({ foodId: e.id, quantity: e.quantity });
+    });
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        "foods": [
-            {"foodId":1,
-            "quantity":3
-            },{"foodId":2,
-            "quantity":5
-            }
-        
-        ],
-        "note": "Hello",
-        "phone": "0123456782"
-        
-    })
+        foods: newArr,
+        fullName: fullName,
+        note: note,
+        phone: phoneNumber
+      })
     };
-    {
-      
-    }
-    fetch("https://order-foods.herokuapp.com/api/v1/orders/create", options);
+
+    fetch("https://order-foods.herokuapp.com/api/v1/orders/create", options).then((response) => response.json())
+    .then((products) => {
+      console.log("Success:", products);
+    }).catch(err=>{
+      console.log(err);
+    });
   };
 
   const handleRemove = (items) => {
@@ -162,26 +187,32 @@ const Checkout = () => {
                 }}
               >
                 {() => (
-                  <Form >
+                  <Form>
                     <div className="field-group">
                       <Field
+                        id="fullName"
                         name="fullName"
                         type="text"
+                        value={fullName.value}
                         placeholder="Full Name"
+                        onChange={handleChangeName}
                         component={Input}
                       />
                       <Field
+                        id="phoneNumber"
                         name="phoneNumber"
-                        // value={phoneNumber}
+                        value={phoneNumber.value}
                         type="text"
                         placeholder="Phone Number"
+                        onChange={handleChangePhone}
                         component={Input}
                       />
                     </div>
                     <Field
-                      name="text"
-                      value={note}
+                      name="note"
                       type="text"
+                      value={note.value}
+                      onChange={handleChangeNote}
                       placeholder="Ghi chú món ăn"
                       component={Input}
                       style={{ height: "70px" }}
@@ -204,12 +235,50 @@ const Checkout = () => {
 
                       <button
                         type="submit"
-                        onClick={orderNow}
+                        onClick={handleClickOpen}
                         style={{ backgroundColor: "#0bc122", color: "black" }}
                       >
                         Oder
                         <i className="rsc-icon-arrow_forward" />
                       </button>
+                      <Dialog
+                        open={open}
+                        TransitionComponent={Transition}
+                        keepMounted
+                        onClose={handleClose}
+                        aria-describedby="alert-dialog-slide-description"
+                      >
+                        <DialogTitle style={{ color: "rgb(11, 193, 34)" }}>
+                          <CheckCircleOutlineIcon />{" "}
+                          {"Bạn Có Chắc Chắn Muốn order ?"}{" "}
+                        </DialogTitle>
+                        <DialogContent>
+                          <DialogContentText id="alert-dialog-slide-description">
+                            <p>
+                              -- Hãy kiểm tra lại các mặt hàng đã chọn và thông
+                              tin của bạn .
+                            </p>
+                            <p style={{ marginTop: "5px" }}>
+                              -- Vui lòng ấn OK để Order các sản phẩm mà đã chọn
+                              .{" "}
+                            </p>
+                          </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleClose}>Cancel</Button>
+                          <Link to="/order-details">
+                            <Button
+                              onClick={orderNow}
+                              style={{
+                                backgroundColor: "rgb(11, 193, 34)",
+                                color: "black"
+                              }}
+                            >
+                              ok
+                            </Button>
+                          </Link>
+                        </DialogActions>
+                      </Dialog>
                       {/* </Link> */}
                     </div>
                   </Form>

@@ -11,8 +11,8 @@ const Footer = () => {
           Need any help?
         </a>
         <span> / </span>
-        <a href="https://twitter.com/NSivadass" target="_blank">
-          Say Hi on Twitter
+        <a href="/" target="_blank">
+          OrderFoods
         </a>
         <span> / </span>
         <a href="https://sivadass.in" target="_blank">
