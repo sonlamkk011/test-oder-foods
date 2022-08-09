@@ -58,14 +58,14 @@ const CartPreview = () => {
               <img className="product-image" src={product.image} />
               <div className="product-info">
                 <p className="product-name">{product.name}</p>
-                <p className="product-price">{product.price}.000 vnd</p>
+                <p className="product-price">{product.price}.000</p>
               </div>
               <div className="product-total">
                 <p className="quantity">
                   {`${product.quantity} ${product.quantity > 1 ? "Nos." : "No."
                     }`}
                 </p>
-                <p className="amount">{product.quantity * product.price}.000 vnd</p>
+                <p className="amount">{product.quantity * product.price}.000 </p>
               </div>
               <button
                 className="product-remove"
@@ -73,15 +73,15 @@ const CartPreview = () => {
               >
                 ×
               </button>
-              <div>
+              {/* <div>
                 <Stack spacing={2} sx={{ width: '100%' }}>
-                  <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                  <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="error"  sx={{ width: '100%', marginTop: -190, marginLeft: 190 }} >
                       Đã xóa {product.name} khỏi giỏ hàng
                     </Alert>
                   </Snackbar>
                 </Stack>
-              </div>
+              </div> */}
             </li>
           );
         })}
