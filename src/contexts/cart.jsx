@@ -110,6 +110,7 @@ const CartProvider = ({ children }) => {
   return (
     <CartDispatchContext.Provider value={dispatch}>
       <CartStateContext.Provider value={state}>
+        
         {children}
       </CartStateContext.Provider>
     </CartDispatchContext.Provider>

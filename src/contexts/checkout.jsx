@@ -13,7 +13,6 @@ const initialState = {
 
 export const CheckoutStateContext = createContext();
 export const CheckoutDispatchContext = createContext();
-export const CheckoutProductsContext = createContext();
 
 const reducer = (state, action) => {
   switch (action.type) {

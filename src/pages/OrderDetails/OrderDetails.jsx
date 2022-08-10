@@ -17,18 +17,18 @@ function createData(Products, Pirce, Status) {
 const OrderDetails = () => {
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    fetch("https://order-foods.herokuapp.com/api/v1/orders/")
+  useEffect((id) => {
+    fetch(`https://order-foods.herokuapp.com/api/v1/orders/${id}` )
       .then((res) => res.json())
       .then((products) => {
-        setProducts(products.content);
+        setProducts(products.id);
+        console.log("🚀 ~ file: OrderDetails.jsx ~ line 25 ~ .then ~ products", products)
       });
   }, []);
   return (
     <>
       <Header />
-      <div id="order-details">
-        {/* <div className="container-fluid"> */}
+      {/* <div id="order-details">
         <div>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
@@ -47,16 +47,15 @@ const OrderDetails = () => {
                       {product.fullName}
                     </TableCell>
                     <TableCell align="right">{product.totalPrice}</TableCell>
-                    {/* <TableCell align="right">{product.fat}</TableCell>
-                        <TableCell align="right">{product.carbs}</TableCell> */}
+                    <TableCell align="right">{product.fat}</TableCell>
+                        <TableCell align="right">{product.carbs}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
         </div>
-        {/* </div> */}
-      </div>
+      </div> */}
     </>
   );
 };

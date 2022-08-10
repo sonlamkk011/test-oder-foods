@@ -30,6 +30,7 @@ import _get from "lodash.get";
 import Input from "components/core/form-controls/Input";
 import { phoneRegExp } from "constants/common";
 import axios from "axios";
+import OrderDetails from "./OrderDetails/OrderDetails";
 
 const AddressSchema = Yup.object().shape({
   fullName: Yup.string().required("Full Name is required"),
@@ -50,7 +51,6 @@ const Checkout = () => {
   const [products, setProducts] = React.useState([]);
   const { items = [] } = useContext(CartStateContext);
   const [open, setOpen] = React.useState(false);
-  const { step, shippingAddress } = useContext(CheckoutStateContext);
   const checkoutDispatch = useContext(CheckoutDispatchContext);
   const totalItems = items.length;
   let total = 0;
@@ -104,18 +104,19 @@ const Checkout = () => {
       })
     };
 
-    fetch("https://order-foods.herokuapp.com/api/v1/orders/create", options).then((response) => response.json())
-    .then((products) => {
-      console.log("Success:", products);
-    }).catch(err=>{
-      console.log(err);
-    });
+    fetch("https://order-foods.herokuapp.com/api/v1/orders/create", options)
+      .then((response) => response.json())
+      .then((products) => {
+        console.log("Success:", products);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleRemove = (items) => {
     return removeCart(dispatch, items);
   };
-
   return (
     <>
       <div className="checkout-page">
@@ -224,7 +225,7 @@ const Checkout = () => {
                         className="outline"
                         onClick={() => handleContinueShopping()}
                         style={{
-                          backgroundColor: "#0bc122",
+                          backgroundColor: "lime",
                           color: "black",
                           marginTop: "112px"
                         }}
@@ -236,9 +237,9 @@ const Checkout = () => {
                       <button
                         type="submit"
                         onClick={handleClickOpen}
-                        style={{ backgroundColor: "#0bc122", color: "black" }}
+                        style={{ backgroundColor: "lime", color: "black" }}
                       >
-                        Oder
+                        Order
                         <i className="rsc-icon-arrow_forward" />
                       </button>
                       <Dialog
@@ -256,22 +257,35 @@ const Checkout = () => {
                           <DialogContentText id="alert-dialog-slide-description">
                             <p>
                               -- Hãy kiểm tra lại các mặt hàng đã chọn và thông
-                              tin của bạn .
+                              tin của bạn.
                             </p>
                             <p style={{ marginTop: "5px" }}>
-                              -- Vui lòng ấn OK để Order các sản phẩm mà đã chọn
-                              .{" "}
+                              -- Vui lòng ấn OK để Order các sản phẩm mà đã
+                              chọn.{" "}
                             </p>
                           </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                          <Button onClick={handleClose}>Cancel</Button>
+                          <Button
+                            onClick={handleClose}
+                            style={{
+                              backgroundColor: "lime",
+                              color: "black",
+                              marginRight: "21rem",
+                              marginTop: "30px",
+                              borderRadius: "12px"
+                            }}
+                          >
+                            Cancel
+                          </Button>
                           <Link to="/order-details">
                             <Button
                               onClick={orderNow}
                               style={{
-                                backgroundColor: "rgb(11, 193, 34)",
-                                color: "black"
+                                backgroundColor: "lime",
+                                color: "black",
+                                marginTop: "30px",
+                                borderRadius: "12px"
                               }}
                             >
                               ok
