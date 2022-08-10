@@ -31,14 +31,15 @@ import Input from "components/core/form-controls/Input";
 import { phoneRegExp } from "constants/common";
 import axios from "axios";
 import OrderDetails from "./OrderDetails/OrderDetails";
+import { Alert, Snackbar, Stack } from "@mui/material";
 
 const AddressSchema = Yup.object().shape({
-  fullName: Yup.string().required("Full Name is required"),
-  phoneNumber: Yup.string()
-    .required("Phone Number is required")
-    .matches(phoneRegExp, "Phone Number is not a valid 10 digit number")
-    .min(10, "Phone Number is too short")
-    .max(10, "Phone Number is too long")
+  // fullName: Yup.string().required("Full Name is required"),
+  // phoneNumber: Yup.string()
+  //   .required("Phone Number is required")
+  //   .matches(phoneRegExp, "Phone Number is not a valid 10 digit number")
+  //   .min(10, "Phone Number is too short")
+  //   .max(10, "Phone Number is too long")
 });
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -56,9 +57,18 @@ const Checkout = () => {
   let total = 0;
   const history = useHistory();
   const dispatch = useContext(CartDispatchContext);
+  const [openalert, setOpenAlert] = React.useState(false);
+ 
+
 
   const handleClickOpen = () => {
-    setOpen(true);
+    // kiếm tra fullname và phone number khác rỗng thì show dialog 
+    if (fullName || phoneNumber !== "") {
+      setOpen(true);
+    } else {
+      // nếu ful name và phone number rỗng thì show ra message cảnh báo
+      setOpenAlert(true)
+    }
   };
 
   const handleClose = () => {
@@ -86,7 +96,9 @@ const Checkout = () => {
     setNote(ev.target.value);
   };
 
+
   const orderNow = () => {
+
     const newArr = [];
     items.map((e) => {
       newArr.push({ foodId: e.id, quantity: e.quantity });
@@ -117,6 +129,11 @@ const Checkout = () => {
   const handleRemove = (items) => {
     return removeCart(dispatch, items);
   };
+
+
+  const handleCloseAlert = () => {
+    setOpenAlert(false)
+  }
   return (
     <>
       <div className="checkout-page">
@@ -146,9 +163,8 @@ const Checkout = () => {
 
                     <div className="product-total">
                       <p className="quantity">
-                        {`${product.quantity} ${
-                          product.quantity > 1 ? "Nos." : "No."
-                        }`}
+                        {`${product.quantity} ${product.quantity > 1 ? "Nos." : "No."
+                          }`}
                       </p>
 
                       <p className="amount">
@@ -198,6 +214,7 @@ const Checkout = () => {
                         placeholder="Full Name"
                         onChange={handleChangeName}
                         component={Input}
+                        style={{ outline: "none" }}
                       />
                       <Field
                         id="phoneNumber"
@@ -207,6 +224,7 @@ const Checkout = () => {
                         placeholder="Phone Number"
                         onChange={handleChangePhone}
                         component={Input}
+                        style={{ outline: "none" }}
                       />
                     </div>
                     <Field
@@ -216,7 +234,7 @@ const Checkout = () => {
                       onChange={handleChangeNote}
                       placeholder="Ghi chú món ăn"
                       component={Input}
-                      style={{ height: "70px" }}
+                      style={{ height: "70px", outline: "none" }}
                     />
 
                     <div className="actions">
@@ -235,6 +253,7 @@ const Checkout = () => {
                       {/* <Link to="/order-details"> */}
 
                       <button
+                        disabled={items == ""}
                         type="submit"
                         onClick={handleClickOpen}
                         style={{ backgroundColor: "lime", color: "black" }}
@@ -278,23 +297,30 @@ const Checkout = () => {
                           >
                             Cancel
                           </Button>
-                          <Link to="/order-details">
-                            <Button
-                              onClick={orderNow}
-                              style={{
-                                backgroundColor: "lime",
-                                color: "black",
-                                marginTop: "30px",
-                                borderRadius: "12px"
-                              }}
-                            >
-                              ok
-                            </Button>
-                          </Link>
+                          {/* <Link to="/order-details"> */}
+                          <Button
+                            onClick={orderNow}
+                            style={{
+                              backgroundColor: "lime",
+                              color: "black",
+                              marginTop: "30px",
+                              borderRadius: "12px"
+                            }}
+                          >
+                            ok
+                          </Button>
+                          {/* </Link> */}
                         </DialogActions>
                       </Dialog>
                       {/* </Link> */}
                     </div>
+                    <Stack spacing={2} sx={{ width: '100%' }}>
+                      <Snackbar open={openalert} autoHideDuration={6000} onClose={handleCloseAlert}>
+                        <Alert onClose={handleCloseAlert} severity="error" sx={{ width: '100%', marginLeft: 105, marginTop: -120 }}>
+                          Name and Phone Number cannot be empty, please check again!
+                        </Alert>
+                      </Snackbar>
+                    </Stack>
                   </Form>
                 )}
               </Formik>
