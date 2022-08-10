@@ -23,11 +23,13 @@ const OrderDetails = () => {
   useEffect(() => {
 
     
-    fetch(`https://order-foods.herokuapp.com/api/v1/orders/` )
-      .then((res) => res.json())
+    fetch(`https://order-foods.herokuapp.com/api/v1/orders + ${id}`)
+      .then((response) => response.json())
       .then((products) => {
-        setProducts(products.id);
-        console.log("🚀 ~ file: OrderDetails.jsx ~ line 25 ~ .then ~ products", products)
+        console.log("Success:", products);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
   return (

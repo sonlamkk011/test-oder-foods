@@ -62,11 +62,11 @@ const Checkout = () => {
 
 
   const handleClickOpen = () => {
-    // kiếm tra fullname và phone number khác rỗng thì show dialog 
+   
     if (fullName || phoneNumber !== "") {
       setOpen(true);
     } else {
-      // nếu ful name và phone number rỗng thì show ra message cảnh báo
+      
       setOpenAlert(true)
     }
   };
@@ -270,7 +270,7 @@ const Checkout = () => {
                       >
                         <DialogTitle style={{ color: "rgb(11, 193, 34)" }}>
                           <CheckCircleOutlineIcon />{" "}
-                          {"Bạn Có Chắc Chắn Muốn order ?"}{" "}
+                          {"Bạn Có Chắc Chắn Muốn Order ?"}{" "}
                         </DialogTitle>
                         <DialogContent>
                           <DialogContentText id="alert-dialog-slide-description">
@@ -297,7 +297,7 @@ const Checkout = () => {
                           >
                             Cancel
                           </Button>
-                          {/* <Link to="/order-details"> */}
+                          <Link to="/order-details">
                           <Button
                             onClick={orderNow}
                             style={{
@@ -309,15 +309,15 @@ const Checkout = () => {
                           >
                             ok
                           </Button>
-                          {/* </Link> */}
+                          </Link>
                         </DialogActions>
                       </Dialog>
                       {/* </Link> */}
                     </div>
                     <Stack spacing={2} sx={{ width: '100%' }}>
                       <Snackbar open={openalert} autoHideDuration={6000} onClose={handleCloseAlert}>
-                        <Alert onClose={handleCloseAlert} severity="error" sx={{ width: '100%', marginLeft: 105, marginTop: -120 }}>
-                          Name and Phone Number cannot be empty, please check again!
+                        <Alert onClose={handleCloseAlert} severity="error" sx={{ width: '100%', marginLeft: 120, marginTop: -120 }}>
+                          Vui lòng nhập thông tin của bạn !
                         </Alert>
                       </Snackbar>
                     </Stack>

@@ -40,7 +40,7 @@ const App = () => {
                     layout={AuthLayout}
                   />
                   <Route
-                    path="/order-details/:id"
+                    path="/order-details"
                     component={OrderDetails}
                   />
                 </Switch>
