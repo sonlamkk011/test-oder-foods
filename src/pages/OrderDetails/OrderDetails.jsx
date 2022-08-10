@@ -23,7 +23,7 @@ const OrderDetails = () => {
   useEffect(() => {
 
     
-    fetch(`https://order-foods.herokuapp.com/api/v1/orders + ${id}`)
+    fetch(`https://order-foods.herokuapp.com/api/v1/orders`)
       .then((response) => response.json())
       .then((products) => {
         console.log("Success:", products);
