@@ -17,26 +17,43 @@ function createData(Products, Pirce, Status) {
 
 const OrderDetails = () => {
   const [products, setProducts] = useState([]);
-  let id = useParams();
-
+  const { id } = useParams();
 
   useEffect(() => {
-
-    
-    fetch(`https://order-foods.herokuapp.com/api/v1/orders`)
-      .then((response) => response.json())
-      .then((products) => {
-        console.log("Success:", products);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    getProducts();
   }, []);
+
+  const getProducts = () => {
+    fetch(`https://order-foods.herokuapp.com/api/v1/orders/1`)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log("res.error");
+        }
+      })
+      .then((data) => setProducts(data))
+      .catch((err) => console.log(err));
+  };
+  console.log("sdadsadsadada", products);
+
   return (
     <>
       <Header />
-    
-        
+      <div id="order-details">
+        <div className="container">
+          <div className="row">
+            {/* {products.map((item) => {
+              return (
+                <div key={item.id}>
+                  <div>aaaa</div>
+                </div>
+              );
+            })} */}
+          </div>
+        </div>
+      </div>
+
       {/* <div id="order-details">
         <div>
           <TableContainer component={Paper}>
