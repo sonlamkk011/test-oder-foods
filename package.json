@@ -50,23 +50,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "engines": {
-    "node": "16.0.0",
-    "npm": "7.10.0"
-  },
-  "description": "Simple React Shopping Cart",
-  "main": "index.js",
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sonlamkk011/test-oder-foods.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sonlamkk011/test-oder-foods/issues"
-  },
-  "homepage": "https://github.com/sonlamkk011/test-oder-foods#readme"
+  }
 }
