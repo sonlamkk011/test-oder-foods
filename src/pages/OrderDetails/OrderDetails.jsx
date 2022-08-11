@@ -20,11 +20,12 @@ const OrderDetails = () => {
   const { id } = useParams();
 
   useEffect(() => {
+    console.log(id);
     getProducts();
   }, []);
 
   const getProducts = () => {
-    fetch(`https://order-foods.herokuapp.com/api/v1/orders/1`)
+    fetch(`https://order-foods.herokuapp.com/api/v1/orders/${id}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -40,21 +41,21 @@ const OrderDetails = () => {
   return (
     <>
       <Header />
-      <div id="order-details">
+      {/* <div id="order-details">
         <div className="container">
           <div className="row">
-            {/* {products.map((item) => {
+            {products?.orderDetails.map((item) => {
               return (
-                <div key={item.id}>
-                  <div>aaaa</div>
+                <div key={item.food.id}>
+                  <div>{item.food.name}</div>
                 </div>
               );
-            })} */}
+            })}
           </div>
         </div>
-      </div>
+      </div> */}
 
-      {/* <div id="order-details">
+      <div id="order-details">
         <div>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
@@ -63,25 +64,32 @@ const OrderDetails = () => {
                 <TableRow>
                   <TableCell>Products</TableCell>
                   <TableCell align="right">Price</TableCell>
+                  <TableCell align="right">Quantity</TableCell>
+                  <TableCell align="right">OrderTime</TableCell>
                   <TableCell align="right">Status</TableCell>
+
                 </TableRow>
               </TableHead>
               <TableBody>
-                {products.map((product) => (
-                  <TableRow key={product.id}>
-                    <TableCell component="th" scope="row">
-                      {product.fullName}
-                    </TableCell>
-                    <TableCell align="right">{product.totalPrice}</TableCell>
-                    <TableCell align="right">{product.fat}</TableCell>
-                        <TableCell align="right">{product.carbs}</TableCell>
-                  </TableRow>
-                ))}
+                {products?.orderDetails.map((item) => {
+                  return (
+                    <TableRow key={item.food.id}>
+                      <TableCell component="th" scope="row">
+                        {item.food.name}
+                      </TableCell>
+                      <TableCell align="right">{item.food.price}.000</TableCell>
+                      <TableCell align="right">{item.quantity}</TableCell>
+                      <TableCell align="right">{item.food.createdAt}</TableCell>
+                      <TableCell align="right">{item.food.status}</TableCell>
+
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>
         </div>
-      </div> */}
+      </div>
     </>
   );
 };

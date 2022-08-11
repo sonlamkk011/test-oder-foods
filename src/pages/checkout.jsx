@@ -59,7 +59,6 @@ const Checkout = () => {
   const dispatch = useContext(CartDispatchContext);
   const [openalert, setOpenAlert] = React.useState(false);
   let { id } = useParams();
-  console.log("🚀 ~ file: checkout.jsx ~ line 62 ~ Checkout ~ useParams", useParams)
 
   const handleClickOpen = () => {
     if (fullName || phoneNumber !== "") {
@@ -132,6 +131,8 @@ const Checkout = () => {
   const handleCloseAlert = () => {
     setOpenAlert(false);
   };
+
+
   return (
     <>
       <div className="checkout-page">
@@ -296,7 +297,7 @@ const Checkout = () => {
                           >
                             Cancel
                           </Button>
-
+                          <Link to={`/order-details/${id}`}>
                           <Button
                             onClick={orderNow}
                             style={{
@@ -306,10 +307,10 @@ const Checkout = () => {
                               borderRadius: "12px"
                             }}
                           >
-                            <Link to={`/order-details/${products.id}`}>
+                           
                               ok
-                              </Link>
                           </Button>
+                              </Link>
                         </DialogActions>
                       </Dialog>
                       {/* </Link> */}
