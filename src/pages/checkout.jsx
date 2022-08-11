@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, useParams, Redirect } from "react-router-dom";
 import classNames from "classnames";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -60,6 +60,8 @@ const Checkout = () => {
   const [openalert, setOpenAlert] = React.useState(false);
   let { id } = useParams();
 
+
+
   const handleClickOpen = () => {
     if (fullName || phoneNumber !== "") {
       setOpen(true);
@@ -114,14 +116,17 @@ const Checkout = () => {
       .then((response) => response.json())
       .then((products) => {
         setProducts(products);
-        console.log(
-          "🚀 ~ file: checkout.jsx ~ line 124 ~ .then ~ products",
-          products
-        );
+        console.log("dasdsadsa", products);
+          
+
+            
+            
+        history.push(`/order-details ${products.id}`); 
       })
       .catch((err) => {
         console.log(err);
       });
+      
   };
 
   const handleRemove = (items) => {
@@ -298,7 +303,7 @@ const Checkout = () => {
                           >
                             Cancel
                           </Button>
-                          <Link to={`/order-details/${id}`}>
+                          {/* <Link to={`/order-details/${id}`}> */}
                           <Button
                             onClick={orderNow}
                             style={{
@@ -311,7 +316,7 @@ const Checkout = () => {
                            
                               ok
                           </Button>
-                              </Link>
+                              {/* </Link> */}
                         </DialogActions>
                       </Dialog>
                       {/* </Link> */}

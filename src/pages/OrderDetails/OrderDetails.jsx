@@ -10,7 +10,7 @@ import Header from "components/Header";
 import "./OrderDetails.scss";
 import { useEffect, useState } from "react";
 import { useParams, withRouter } from "react-router-dom";
-
+import formatDate from "../../ulti/formatDate";
 function createData(Products, Pirce, Status) {
   return { Products, Pirce, Status };
 }
@@ -79,7 +79,7 @@ const OrderDetails = () => {
                       </TableCell>
                       <TableCell align="right">{item.food.price}.000</TableCell>
                       <TableCell align="right">{item.quantity}</TableCell>
-                      <TableCell align="right">{item.food.createdAt}</TableCell>
+                      <TableCell align="right">{formatDate(item.food.createdAt)}</TableCell>
                       <TableCell align="right">{item.food.status}</TableCell>
 
                     </TableRow>
