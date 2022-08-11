@@ -13,6 +13,7 @@ import HomePage from "pages/home";
 import CheckoutPage from "pages/checkout";
 import "assets/scss/style.scss";
 import OrderDetails from "pages/OrderDetails/OrderDetails";
+import Login from "Account/Login";
 
 const App = () => {
   return (
@@ -42,6 +43,10 @@ const App = () => {
                   <Route
                     path="/order-details"
                     component={OrderDetails}
+                  />
+                  <Route
+                    path="/account-login"
+                    component={Login}
                   />
                 </Switch>
               </Router>
