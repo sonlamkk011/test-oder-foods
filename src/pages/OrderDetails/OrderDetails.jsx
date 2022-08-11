@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import Header from "components/Header";
 import "./OrderDetails.scss";
 import { useEffect, useState } from "react";
+import { useParams, withRouter } from "react-router-dom";
 
 function createData(Products, Pirce, Status) {
   return { Products, Pirce, Status };
@@ -16,18 +17,43 @@ function createData(Products, Pirce, Status) {
 
 const OrderDetails = () => {
   const [products, setProducts] = useState([]);
+  const { id } = useParams();
 
-  useEffect((id) => {
-    fetch(`https://order-foods.herokuapp.com/api/v1/orders/${id}` )
-      .then((res) => res.json())
-      .then((products) => {
-        setProducts(products.id);
-        console.log("🚀 ~ file: OrderDetails.jsx ~ line 25 ~ .then ~ products", products)
-      });
+  useEffect(() => {
+    getProducts();
   }, []);
+
+  const getProducts = () => {
+    fetch(`https://order-foods.herokuapp.com/api/v1/orders/1`)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log("res.error");
+        }
+      })
+      .then((data) => setProducts(data))
+      .catch((err) => console.log(err));
+  };
+  console.log("sdadsadsadada", products);
+
   return (
     <>
       <Header />
+      <div id="order-details">
+        <div className="container">
+          <div className="row">
+            {/* {products.map((item) => {
+              return (
+                <div key={item.id}>
+                  <div>aaaa</div>
+                </div>
+              );
+            })} */}
+          </div>
+        </div>
+      </div>
+
       {/* <div id="order-details">
         <div>
           <TableContainer component={Paper}>
@@ -59,4 +85,4 @@ const OrderDetails = () => {
     </>
   );
 };
-export default OrderDetails;
+export default withRouter(OrderDetails);

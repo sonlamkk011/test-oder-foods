@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import classNames from "classnames";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -58,16 +58,14 @@ const Checkout = () => {
   const history = useHistory();
   const dispatch = useContext(CartDispatchContext);
   const [openalert, setOpenAlert] = React.useState(false);
- 
-
+  let { id } = useParams();
+  console.log("🚀 ~ file: checkout.jsx ~ line 62 ~ Checkout ~ useParams", useParams)
 
   const handleClickOpen = () => {
-    // kiếm tra fullname và phone number khác rỗng thì show dialog 
     if (fullName || phoneNumber !== "") {
       setOpen(true);
     } else {
-      // nếu ful name và phone number rỗng thì show ra message cảnh báo
-      setOpenAlert(true)
+      setOpenAlert(true);
     }
   };
 
@@ -80,7 +78,6 @@ const Checkout = () => {
   };
   const handleSaveAddress = (addressData) => {
     saveShippingAddress(checkoutDispatch, addressData);
-    console.log("loglog", addressData);
   };
 
   const handleClickTimeline = (nextStep) => {
@@ -96,9 +93,7 @@ const Checkout = () => {
     setNote(ev.target.value);
   };
 
-
   const orderNow = () => {
-
     const newArr = [];
     items.map((e) => {
       newArr.push({ foodId: e.id, quantity: e.quantity });
@@ -119,7 +114,11 @@ const Checkout = () => {
     fetch("https://order-foods.herokuapp.com/api/v1/orders/create", options)
       .then((response) => response.json())
       .then((products) => {
-        console.log("Success:", products);
+        setProducts(products);
+        console.log(
+          "🚀 ~ file: checkout.jsx ~ line 124 ~ .then ~ products",
+          products
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -130,10 +129,9 @@ const Checkout = () => {
     return removeCart(dispatch, items);
   };
 
-
   const handleCloseAlert = () => {
-    setOpenAlert(false)
-  }
+    setOpenAlert(false);
+  };
   return (
     <>
       <div className="checkout-page">
@@ -163,8 +161,9 @@ const Checkout = () => {
 
                     <div className="product-total">
                       <p className="quantity">
-                        {`${product.quantity} ${product.quantity > 1 ? "Nos." : "No."
-                          }`}
+                        {`${product.quantity} ${
+                          product.quantity > 1 ? "Nos." : "No."
+                        }`}
                       </p>
 
                       <p className="amount">
@@ -270,7 +269,7 @@ const Checkout = () => {
                       >
                         <DialogTitle style={{ color: "rgb(11, 193, 34)" }}>
                           <CheckCircleOutlineIcon />{" "}
-                          {"Bạn Có Chắc Chắn Muốn order ?"}{" "}
+                          {"Bạn Có Chắc Chắn Muốn Order ?"}{" "}
                         </DialogTitle>
                         <DialogContent>
                           <DialogContentText id="alert-dialog-slide-description">
@@ -297,7 +296,7 @@ const Checkout = () => {
                           >
                             Cancel
                           </Button>
-                          {/* <Link to="/order-details"> */}
+
                           <Button
                             onClick={orderNow}
                             style={{
@@ -307,17 +306,30 @@ const Checkout = () => {
                               borderRadius: "12px"
                             }}
                           >
-                            ok
+                            <Link to={`/order-details/${products.id}`}>
+                              ok
+                              </Link>
                           </Button>
-                          {/* </Link> */}
                         </DialogActions>
                       </Dialog>
                       {/* </Link> */}
                     </div>
-                    <Stack spacing={2} sx={{ width: '100%' }}>
-                      <Snackbar open={openalert} autoHideDuration={6000} onClose={handleCloseAlert}>
-                        <Alert onClose={handleCloseAlert} severity="error" sx={{ width: '100%', marginLeft: 105, marginTop: -120 }}>
-                          Name and Phone Number cannot be empty, please check again!
+                    <Stack spacing={2} sx={{ width: "100%" }}>
+                      <Snackbar
+                        open={openalert}
+                        autoHideDuration={6000}
+                        onClose={handleCloseAlert}
+                      >
+                        <Alert
+                          onClose={handleCloseAlert}
+                          severity="error"
+                          sx={{
+                            width: "100%",
+                            marginLeft: 180,
+                            marginTop: -190
+                          }}
+                        >
+                          Vui lòng nhập thông tin của bạn !
                         </Alert>
                       </Snackbar>
                     </Stack>
