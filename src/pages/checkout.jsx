@@ -131,6 +131,7 @@ const Checkout = () => {
   const handleCloseAlert = () => {
     setOpenAlert(false);
   };
+  
 
 
   return (
