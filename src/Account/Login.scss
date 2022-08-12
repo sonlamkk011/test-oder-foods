@@ -1,127 +1,108 @@
-.backRight {
-    position: absolute;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    background: #3498db url(https://download.unsplash.com/photo-1429041966141-44d228a42775);
-    background-size: cover;
-    background-position: 50% 50%;
+.box-form {
+    margin-top: 200px;
+    margin-left: 200px;
+    width: 70%;
+    height: 40rem;
+    border-radius: 10px;
+    display: flex;
+    box-shadow: 0 0 10px 0px #090b6f85;
 }
 
-.backLeft {
-    position: absolute;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    background: #e74c3c url(https://download.unsplash.com/photo-1428279148693-1cf2163ed67d);
-    background-size: cover;
-    background-position: 50% 50%;
+@media (max-width: 980px) {
+    .box-form {
+        flex-flow: wrap;
+        text-align: center;
+        align-content: center;
+        align-items: center;
+    }
 }
 
-#back {
+.box-form div {
+    height: auto;
+}
+
+.box-form .left {
+    color: #FFFFFF;
+    width: 69%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("https://img.freepik.com/premium-vector/flat-illustration-courier-vespa-man-with-city-background_584397-154.jpg?w=2000");
+    overflow: hidden;
+}
+
+.box-form .left .overlay {
+    padding: 30px;
     width: 100%;
     height: 100%;
-    position: absolute;
-    z-index: -999;
-}
-
-#slideBox {
-    width: 50%;
-    max-height: 100%;
-    height: 100%;
+    background: #5961f9ad;
     overflow: hidden;
-    margin-left: 50%;
-    position: absolute;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    box-sizing: border-box;
 }
 
-.topLayer {
-    width: 200%;
-    height: 100%;
-    position: relative;
-    left: 0;
-    left: -100%;
+.box-form .left .overlay h1 {
+    font-size: 5vmax;
+    line-height: 1;
+    font-weight: 900;
+    margin-top: 100px;
+    margin-bottom: 20px;
 }
 
-.left {
-    width: 50%;
-    height: 100%;
-    background: #2C3034;
-    left: 0;
-    position: absolute;
+.box-form .left .overlay span p {
+    margin-top: 100px;
+    font-weight: 900;
 }
 
-.right {
-    width: 50%;
-    height: 100%;
-    background: #f9f9f9;
-    right: 0;
-    position: absolute;
+.box-form .left .overlay span a {
+    background: #3b5998;
+    color: #FFFFFF;
+    margin-top: 10px;
+    padding: 14px 50px;
+    border-radius: 100px;
+    display: inline-block;
+    box-shadow: 0 3px 6px 1px #042d4657;
 }
 
-.content {
-    width: 250px;
-    margin: 0 auto;
-    top: 30%;
-    position: absolute;
-    left: 50%;
-    margin-left: -125px;
+.box-form .left .overlay span a:last-child {
+    background: #1dcaff;
+    margin-left: 30px;
 }
 
-.content h2 {
-    color: #03A9F4;
-    font-weight: 300;
-    font-size: 35px;
+.box-form .right {
+    margin-right: 120px;
+    margin-top: 150px;
+    padding: 40px;
+    overflow: hidden;
 }
 
-button {
-    background: #03A9F4;
-    padding: 10px 16px;
-    width: auto;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 14px;
-    color: #fff;
-    line-height: 16px;
-    letter-spacing: 0.5px;
-    border-radius: 2px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);
-    border: 0;
-    outline: 0;
-    margin: 15px 15px 15px 0;
-    transition: all 0.25s;
+
+.box-form .right h5 {
+    margin-bottom: 100px;
+    font-size: 3vmax;
+    line-height: 0;
 }
 
-button:hover {
-    background: #0288D1;
-    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);
+
+
+
+
+.box-form .right input {
+    width: 15rem;
+    padding: 10px;
+    margin-top: 25px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #B0B3B9;
 }
 
-.off {
-    background: none;
-    color: #03A9F4;
-    box-shadow: none;
+.box-form .right .remember-me--forget-password {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.right .off:hover {
-    background: #eee;
-    color: #03A9F4;
-    box-shadow: none;
-}
 
-.left .off:hover {
-    box-shadow: none;
-    color: #03A9F4;
-    background: #363A3D;
-}
-
-input {
-    background: transparent;
-    border: 0;
-    outline: 0;
-    border-bottom: 1px solid #45494C;
-    font-size: 14px;
-    color: #959595;
-    padding: 8px 0;
-    margin-top: 20px;
+.box-form .right button {
+    margin-top: 50px;
+   
 }

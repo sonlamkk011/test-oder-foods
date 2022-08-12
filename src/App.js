@@ -13,7 +13,9 @@ import HomePage from "pages/home";
 import CheckoutPage from "pages/checkout";
 import "assets/scss/style.scss";
 import OrderDetails from "pages/OrderDetails/OrderDetails";
-import Login from "Account/Login";
+import { Login } from "Account/Login";
+import { Register } from "Account/Register/Register";
+
 
 const App = () => {
   return (
@@ -47,6 +49,10 @@ const App = () => {
                   <Route
                     path="/account-login"
                     component={Login}
+                  />
+                  <Route
+                    path="/account-register"
+                    component={Register}
                   />
                 </Switch>
               </Router>

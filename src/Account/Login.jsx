@@ -1,65 +1,111 @@
+import { Alert, Button, Stack } from "@mui/material";
+import axios from "axios";
 import React, { Component } from "react";
+import { Error } from "./Components/Error";
+import { Form } from "./Components/Form";
+import authService from "./Components/Services/AuthService";
+import "./Login.scss"
 
-export class Login extends Component {
+export class Login extends Form {
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
-            password: ""
+            form: this._getInitFormData({
+                username: "",
+                password: "",
+            }),
+            message: {
+                type: "",
+                content: "",
+                isDisplay: false,
+            }
+
         }
     }
+
+
+    handleSubmit = async () => {
+        this._validateForm();
+        if (this._isFormValid()) {
+            const { username, password } = this.state.form;
+            const params = new URLSearchParams();
+            params.append("grant_type", "password");
+            params.append("username", username.value);
+            params.append("password", password.value);
+            await authService.accessAuthToken(params)
+                .then((res) => {
+                    localStorage.setItem('access_token', res.data.access_token);
+                    window.location.replace('/');
+                })
+                .catch((err) => {
+                    let { message } = this.state;
+                    message.isDisplay = true;
+                    message.type = "error";
+                    message.content = "Vui lòng kiểm tra lại tải khoản hoặc mật khẩu";
+                    this.setState({
+                        message
+                    });
+                });
+        } else {
+        }
+
+    }
+
+
+
     render() {
-        const { username, password } = this.state;
+        const { message } = this.state;
+        const { username, password } = this.state.form;
         return (
             <>
-                <>
-                    <div id="back">
-                        <div className="backRight" />
-                        <div className="backLeft" />
+                <div className="box-form">
+                    <div className="left">
                     </div>
-                    <div id="slideBox">
-                        <div className="topLayer">
-                            <div className="left">
-                                <div className="content">
-                                    <h2>Sign Up</h2>
-                                    <form method="post" onsubmit="return false;">
-                                        <div className="form-group">
-                                            <input type="text" placeholder="username" />
-                                        </div>
-                                        <div className="form-group" />
-                                        <div className="form-group" />
-                                        <div className="form-group" />
-                                    </form>
-                                    <button id="goLeft" className="off">
-                                        Login
-                                    </button>
-                                    <button>Sign up</button>
-                                </div>
-                            </div>
-                            <div className="right">
-                                <div className="content">
-                                    <h2>Login</h2>
-                                    <form method="post" onsubmit="return false;">
-                                        <div className="form-group">
-                                            <label htmlFor="username" className="form-label">
-                                                Username
-                                            </label>
-                                            <input type="text" />
-                                        </div>
-                                        <button id="goRight" className="off">
-                                            Sign Up
-                                        </button>
-                                        <button id="login" type="submit">
-                                            Login
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
+                    <div className="right">
+                        <h5>Login</h5>
+                        <div className="inputs">
+                            <input type="text" required placeholder="User Name" onChange={(ev) => this._setValue(ev, "username")} />
+                            {username.err !== "" ? (
+                                username.err === "*" ? (
+                                    <Error message="username cannot be empty" />
+                                ) : (
+                                    <Error message={username.err} />
+                                )
+                            ) : (
+                                ""
+                            )}
+                            <br />
+                            <input type="password" required placeholder="Password" onChange={(ev) => this._setValue(ev, "password")} />
+                            {password.err !== "" ? (
+                                password.err === "*" ? (
+                                    <Error message="password cannot be empty" />
+                                ) : (
+                                    <Error message={password.err} />
+                                )
+                            ) : (
+                                ""
+                            )}
                         </div>
+                        <Button variant="contained" onClick={this.handleSubmit}>Submit</Button>
                     </div>
-                </>
+                </div>
+                <div>
+
+                    {
+                        message.isDisplay ? (<Stack sx={{ width: '20%', marginTop: -75, float: "right", marginRight: 50 }} spacing={2}>
+                            <Alert severity={message.type}> {message.content}
+                            </Alert>
+                        </Stack>
+                        ) : (
+                            ""
+                        )}
+                </div>
+
 
             </>
         )
     }
+
 }
+
+
