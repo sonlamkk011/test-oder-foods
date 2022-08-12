@@ -101,7 +101,6 @@ const Checkout = () => {
   const orderNow = () => {
     setOpenAlerts(true);
     setOpen(false);
-
     const newArr = [];
     items.map((e) => {
       newArr.push({ foodId: e.id, quantity: e.quantity });

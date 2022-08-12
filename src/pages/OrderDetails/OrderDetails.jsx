@@ -42,33 +42,21 @@ const OrderDetails = () => {
   return (
     <>
       <Header />
-      {/* <div id="order-details">
-        <div className="container">
-          <div className="row">
-            {products?.orderDetails.map((item) => {
-              return (
-                <div key={item.food.id}>
-                  <div>{item.food.name}</div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div> */}
-
+     
       <div id="order-details">
+        <h1 style={{marginBottom:"25px",color:"#077915", fontSize:"50px"}}>Order Details</h1>
         <div>
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} style={{height:"250px", borderRadius:"20px"}}>
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
-              <caption style={{ color:"black"}}>
+              <caption style={{ color:"black", fontSize:"20px", fontWeight:"bold"}}>
                 Mặt hàng của bạn đã đc order thành công, vui lòng chờ ...
               </caption>
               <TableHead>
-                <TableRow style={{backgroundColor:"lime", color:"black"}}>
-                  <TableCell style={{fontSize:"20px"}}>Products</TableCell>
-                  <TableCell align="right" style={{fontSize:"20px"}}>Price</TableCell>
-                  <TableCell align="right" style={{fontSize:"20px"}}>Quantity</TableCell>
-                  <TableCell align="right" style={{fontSize:"20px"}}>Order Date</TableCell>
+                <TableRow style={{backgroundColor:"#6dc778", color:"rgb(237 237 237)"}}>
+                  <TableCell style={{fontSize:"20px",fontWeight:"bold"}}>Products</TableCell>
+                  <TableCell align="right" style={{fontSize:"20px",fontWeight:"bold"}}>Price</TableCell>
+                  <TableCell align="right" style={{fontSize:"20px",fontWeight:"bold"}}>Quantity</TableCell>
+                  <TableCell align="right" style={{fontSize:"20px",fontWeight:"bold"}}>Order Date</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
