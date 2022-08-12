@@ -124,11 +124,12 @@ const Checkout = () => {
         setProducts(products);
         console.log("dasdsadsa", products);
 
-        history.push(`/order-details/${products.id}`);
+        // history.push(`/order-details/${products.id}`);
       })
       .catch((err) => {
         console.log(err);
       });
+
   };
 
   const handleRemove = (items) => {
@@ -138,7 +139,6 @@ const Checkout = () => {
   const handleCloseAlert = () => {
     setOpenAlert(false);
   };
-
   return (
     <>
       <div className="checkout-page">

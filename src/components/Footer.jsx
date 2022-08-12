@@ -20,7 +20,7 @@ const Footer = () => {
         </a>
       </p>
       <p>
-        &copy; {currentYear} <strong>Order Foods</strong> - Order Foods Store
+        &copy; {currentYear} <strong>Order Foods</strong> -Food Store
       </p>
     </footer>
   );
