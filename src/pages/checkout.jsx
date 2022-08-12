@@ -9,6 +9,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { Alert, Snackbar, Stack } from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
 
 import {
   CheckoutStateContext,
@@ -31,7 +33,6 @@ import Input from "components/core/form-controls/Input";
 import { phoneRegExp } from "constants/common";
 import axios from "axios";
 import OrderDetails from "./OrderDetails/OrderDetails";
-import { Alert, Snackbar, Stack } from "@mui/material";
 
 const AddressSchema = Yup.object().shape({
   // fullName: Yup.string().required("Full Name is required"),
@@ -49,6 +50,7 @@ const Checkout = () => {
   const [fullName, setfullName] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [note, setNote] = React.useState("");
+  const [openAlerts, setOpenAlerts] = React.useState(false);
   const [products, setProducts] = React.useState([]);
   const { items = [] } = useContext(CartStateContext);
   const [open, setOpen] = React.useState(false);
@@ -60,7 +62,9 @@ const Checkout = () => {
   const [openalert, setOpenAlert] = React.useState(false);
   let { id } = useParams();
 
-
+  const handleClick = () => {
+    setOpenAlerts(true);
+  };
 
   const handleClickOpen = () => {
     if (fullName || phoneNumber !== "") {
@@ -95,6 +99,9 @@ const Checkout = () => {
   };
 
   const orderNow = () => {
+    setOpenAlerts(true);
+    setOpen(false);
+
     const newArr = [];
     items.map((e) => {
       newArr.push({ foodId: e.id, quantity: e.quantity });
@@ -117,16 +124,12 @@ const Checkout = () => {
       .then((products) => {
         setProducts(products);
         console.log("dasdsadsa", products);
-          
 
-            
-            
-        history.push(`/order-details ${products.id}`); 
+        history.push(`/order-details/${products.id}`);
       })
       .catch((err) => {
         console.log(err);
       });
-      
   };
 
   const handleRemove = (items) => {
@@ -136,8 +139,6 @@ const Checkout = () => {
   const handleCloseAlert = () => {
     setOpenAlert(false);
   };
-  
-
 
   return (
     <>
@@ -313,10 +314,10 @@ const Checkout = () => {
                               borderRadius: "12px"
                             }}
                           >
-                           
-                              ok
+                            ok
                           </Button>
-                              {/* </Link> */}
+
+                          {/* </Link> */}
                         </DialogActions>
                       </Dialog>
                       {/* </Link> */}
@@ -340,6 +341,26 @@ const Checkout = () => {
                         </Alert>
                       </Snackbar>
                     </Stack>
+                    <div>
+                      <Snackbar
+                        open={openAlerts}
+                        autoHideDuration={6000}
+                        onClose={handleClose}
+                      >
+                        <Alert
+                          onClose={handleClose}
+                          severity="success"
+                          sx={{ 
+                            width: "100%",
+                            marginLeft:"980px",
+                            marginTop:"-1000px",
+                            
+                         }}
+                        >
+                          Bạn đã order thành công !
+                        </Alert>
+                      </Snackbar>
+                    </div>
                   </Form>
                 )}
               </Formik>

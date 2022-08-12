@@ -5,12 +5,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Moment from 'react-moment';
 
 import Header from "components/Header";
 import "./OrderDetails.scss";
 import { useEffect, useState } from "react";
 import { useParams, withRouter } from "react-router-dom";
-import formatDate from "../../ulti/formatDate";
+import { formatDate } from "ulti/formatDate";
 function createData(Products, Pirce, Status) {
   return { Products, Pirce, Status };
 }
@@ -59,29 +60,31 @@ const OrderDetails = () => {
         <div>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
-              <caption>A basic table example with a caption</caption>
+              <caption style={{ color:"black"}}>
+                Mặt hàng của bạn đã đc order thành công, vui lòng chờ ...
+              </caption>
               <TableHead>
-                <TableRow>
-                  <TableCell>Products</TableCell>
-                  <TableCell align="right">Price</TableCell>
-                  <TableCell align="right">Quantity</TableCell>
-                  <TableCell align="right">OrderTime</TableCell>
-                  <TableCell align="right">Status</TableCell>
-
+                <TableRow style={{backgroundColor:"lime", color:"black"}}>
+                  <TableCell style={{fontSize:"20px"}}>Products</TableCell>
+                  <TableCell align="right" style={{fontSize:"20px"}}>Price</TableCell>
+                  <TableCell align="right" style={{fontSize:"20px"}}>Quantity</TableCell>
+                  <TableCell align="right" style={{fontSize:"20px"}}>Order Date</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {products?.orderDetails.map((item) => {
                   return (
-                    <TableRow key={item.food.id}>
+                    <TableRow key={item.food.id} style={{}}>
                       <TableCell component="th" scope="row">
                         {item.food.name}
                       </TableCell>
                       <TableCell align="right">{item.food.price}.000</TableCell>
                       <TableCell align="right">{item.quantity}</TableCell>
-                      <TableCell align="right">{formatDate(item.food.createdAt)}</TableCell>
-                      <TableCell align="right">{item.food.status}</TableCell>
-
+                      <TableCell align="right">
+                      <Moment format="DD/MM/YYYY">
+                        {item.food.createdAt}
+                        </Moment>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
