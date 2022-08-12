@@ -123,8 +123,8 @@ const Checkout = () => {
       .then((products) => {
         setProducts(products);
         console.log("dasdsadsa", products);
-
-        // history.push(`/order-details/${products.id}`);
+        localStorage.removeItem("cartItems")
+        history.push(`/order-details/${products.id}`);
       })
       .catch((err) => {
         console.log(err);

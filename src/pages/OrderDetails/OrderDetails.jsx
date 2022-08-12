@@ -60,7 +60,7 @@ const OrderDetails = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {products?.orderDetails.map((item) => {
+                {products?.orderDetails?.map((item) => {
                   return (
                     <TableRow key={item.food.id} style={{}}>
                       <TableCell component="th" scope="row">
